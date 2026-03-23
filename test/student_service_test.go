@@ -17,11 +17,6 @@ test case:
 - filter students (return error if non exist)
 */
 
-var mockRepository = NewMockStudentRepository()
-var studentService service.StudentService = &service.StudentServiceImpl{
-	Repo: mockRepository,
-}
-
 type AddStudentGradeTestCases struct {
 	description    string
 	student        model.Student
@@ -32,6 +27,11 @@ type AddStudentGradeTestCases struct {
 
 func TestAddStudentGrade(t *testing.T) {
 	// Arrange
+	var mockRepository = NewMockStudentRepository()
+	var studentService service.StudentService = &service.StudentServiceImpl{
+		Repo: mockRepository,
+	}
+
 	testCases := []AddStudentGradeTestCases{
 		{
 			description: "valid add student grade",
@@ -120,7 +120,18 @@ type CalculateAverageStudentGradeTestCases struct {
 
 func TestCalculateAverageGrade(t *testing.T) {
 	// Arrange
+	var mockRepository = NewMockStudentRepository()
+	var studentService service.StudentService = &service.StudentServiceImpl{
+		Repo: mockRepository,
+	}
+
 	mockRepository.AddStudent(model.Student{Id: 1, Name: "Justin"})
+	mockRepository.AddGrade(model.ReportCard{
+		Id:        1,
+		Subject:   "History",
+		Grade:     89.2,
+		StudentId: 1,
+	})
 	mockRepository.AddGrade(model.ReportCard{
 		Id:        2,
 		Subject:   "English",
@@ -174,6 +185,11 @@ type FindTopStudentTestCases struct {
 
 func TestFindTopStudent(t *testing.T) {
 	// Arrange
+	var mockRepository = NewMockStudentRepository()
+	var studentService service.StudentService = &service.StudentServiceImpl{
+		Repo: mockRepository,
+	}
+
 	mockRepository.AddStudent(model.Student{Id: 1, Name: "Justin"})
 	mockRepository.AddStudent(model.Student{Id: 2, Name: "Amy"})
 	mockRepository.AddGrade(model.ReportCard{
@@ -223,6 +239,11 @@ type FilterStudentsTestCases struct {
 
 func TestFilterStudents(t *testing.T) {
 	// Arrange
+	var mockRepository = NewMockStudentRepository()
+	var studentService service.StudentService = &service.StudentServiceImpl{
+		Repo: mockRepository,
+	}
+
 	mockRepository.AddStudent(model.Student{Id: 1, Name: "Justin"})
 	mockRepository.AddStudent(model.Student{Id: 2, Name: "Amy"})
 

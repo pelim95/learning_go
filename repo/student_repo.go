@@ -25,8 +25,8 @@ type StudentRepoImpl struct {
 	studentDb *sql.DB
 }
 
-func NewStudentRepoImpl(studentDb *sql.DB) *StudentRepoImpl {
-	studentDb = Connect()
+func NewStudentRepoImpl() *StudentRepoImpl {
+	studentDb := Connect()
 	return &StudentRepoImpl{studentDb}
 }
 
